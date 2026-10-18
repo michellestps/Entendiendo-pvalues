@@ -1,6 +1,6 @@
-# Entendiendo los p-values · Estadística aplicada a bioinformática
+# Entendiendo los p-values: Estadística aplicada a bioinformática
 
-Material de una sesión introductoria de 40 minutos sobre:
+Material de la sesión:
 
 - qué es un p-value;
 - pruebas de permutación;
@@ -12,13 +12,13 @@ Todo usa datos de expresión génica de GEO.
 
 | Archivo | Descripción |
 |---|---|
-| `entendiendo_pvalues.R` | Script único de la clase. Solo R base, sin paquetes. |
+| `entendiendo_pvalues.R` | Script único de la clase.|
 | `diapositivas.pdf` | Diapositivas de la sesión. |
 | `temario.md` | Temario y guion de la sesión, bloque por bloque. |
 
 ## Datos (Drive)
 
-Los datos **no** están en este repositorio. Descárgalos de Drive:
+Los datos no están en este repositorio. Descárgalos de Drive:
 
 **➡ [Descargar `GSE9348_series_matrix.txt.gz` (Drive)](https://drive.google.com/file/d/17T8xLIXicxRN_Hj-V2P9zggUvNzItjFh/view?usp=share_link)**
 
@@ -35,19 +35,9 @@ GSE9348 contiene expresión génica de mucosa de colon:
 ## Cómo ejecutarlo
 
 1. Instala [R](https://cran.r-project.org/) y [RStudio](https://posit.co/download/rstudio-desktop/).
-2. Descarga este repositorio con **Code → Download ZIP** o con:
-   ```bash
-   git clone <URL-de-este-repo>
-   ```
-3. Crea una carpeta `datos/` dentro del repositorio y coloca ahí el archivo de Drive:
-   ```
-   entendiendo_pvalues.R
-   datos/
-   └── GSE9348_series_matrix.txt.gz
-   ```
-4. Abre `entendiendo_pvalues.R` en RStudio.
-5. Elige **Session → Set Working Directory → To Source File Location**.
-6. Ejecuta el script sección por sección con `Ctrl/Cmd + Enter`.
+2. Descarga este repositorio: botón verde **Code → Download ZIP** (o `git clone` si usas línea de comandos).
+3. Descarga `GSE9348_series_matrix.txt.gz` del Drive (enlace arriba) y guárdalo dentro de una carpeta `datos/`, junto al script.
+4. Abre `entendiendo_pvalues.R` en RStudio, ve a **Session → Set Working Directory → To Source File Location**, y corre el script por bloques con `Ctrl/Cmd + Enter`.
 
 ## Qué hace el script
 
