@@ -2,11 +2,11 @@
 
 Material de una sesión introductoria de 40 minutos sobre:
 
-- qué es (y qué no es) un p-value;
+- qué es un p-value;
 - pruebas de permutación;
 - comparaciones múltiples: Bonferroni y Benjamini–Hochberg (FDR).
 
-Todo usa datos reales de expresión génica de GEO.
+Todo usa datos de expresión génica de GEO.
 
 ## Contenido del repositorio
 
@@ -16,11 +16,11 @@ Todo usa datos reales de expresión génica de GEO.
 | `diapositivas.pdf` | Diapositivas de la sesión. |
 | `temario.md` | Temario y guion de la sesión, bloque por bloque. |
 
-## Datos (carpeta de Drive)
+## Datos (Drive)
 
-Los datos **no** están en este repositorio. Descárgalos de la carpeta de Drive del curso:
+Los datos **no** están en este repositorio. Descárgalos de Drive:
 
-**➡ [Carpeta de Drive del curso](PEGA_AQUI_EL_ENLACE_DE_DRIVE)**
+**➡ [Descargar `GSE9348_series_matrix.txt.gz` (Drive)](https://drive.google.com/file/d/17T8xLIXicxRN_Hj-V2P9zggUvNzItjFh/view?usp=share_link)**
 
 | Archivo | Origen |
 |---|---|
