@@ -1,15 +1,15 @@
 # Temario — Entendiendo los p-values
 
-**Estadística aplicada a bioinformática · sesión de 40 minutos · nivel básico**
+**Estadística aplicada a bioinformática**
 
-## Objetivo
+### Objetivos de aprendizaje
 
-Al terminar, las personas participantes podrán:
+Al finalizar el taller, las personas participantes podrán:
 
-1. Explicar qué representa un p-value (y qué no).
-2. Describir de forma intuitiva una prueba de permutación.
-3. Entender por qué las comparaciones múltiples aumentan los falsos positivos.
-4. Distinguir un p-value sin ajustar de uno ajustado por Bonferroni o Benjamini–Hochberg (FDR).
+1. **Explicar qué representa un p-value** y cómo se interpreta en el contexto de una prueba de hipótesis.
+2. **Describir intuitivamente una prueba de permutación** y comprender cómo permite evaluar si un resultado podría explicarse por el azar bajo una hipótesis nula.
+3. **Explicar por qué las comparaciones múltiples aumentan el riesgo de obtener falsos positivos** cuando se realizan numerosas pruebas estadísticas.
+4. **Distinguir entre p-values sin ajustar y ajustados**, e identificar el propósito de las correcciones de Bonferroni y Benjamini–Hochberg (FDR).
 
 ## Material
 
@@ -21,20 +21,20 @@ Al terminar, las personas participantes podrán:
 
 **Datos:** GEO [GSE9348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE9348). Mucosa de colon de 12 controles sanos y 70 tumores de cáncer colorrectal en estadio temprano, en la plataforma GPL570 (Affymetrix HG-U133 Plus 2.0). Son muestras independientes, así que la permutación libre de etiquetas es válida. En clase usamos 8 sanas y 8 enfermas tomadas al azar.
 
-## Mapa temporal
+## Mapa del taller
 
-| Minuto | Bloque | Diapositivas | Script |
-|---|---|---|---|
-| 0–4 | Pregunta biológica | 1–2 | Secciones 0–3 (cargar datos) |
-| 4–11 | Hipótesis y significado del p-value | 3–4 | — |
-| 11–20 | Prueba de permutación | 5 | Parte A |
-| 20–29 | Comparaciones múltiples | 6–7 | Parte B |
-| 29–35 | Leer resultados sin sobreinterpretar | 8–9 | Parte C |
-| 35–40 | Cierre y comprobación | 10–11 | Ejercicios |
+| Bloque | Diapositivas | Script |
+|---|---|---|
+| Pregunta biológica | 1–2 | Secciones 0–3 (cargar datos) |
+| Hipótesis y significado del p-value | 3–4 | — |
+| Prueba de permutación | 5 | Parte A |
+| Comparaciones múltiples | 6–7 | Parte B |
+| Leer resultados sin sobreinterpretar | 8–9 | Parte C |
+| Cierre y comprobación | 10–11 | Ejercicios |
 
 ---
 
-## 0–4 min · 1. Abrir con una pregunta biológica
+## 1. Abrir con una pregunta biológica
 
 *Diapositivas 1–2*
 
@@ -49,7 +49,7 @@ Al terminar, las personas participantes podrán:
 
 **En R:** ejecutar las secciones 0–3. Mostrar `table(grupo)` (12 sanas y 70 enfermas) y explicar el submuestreo de 8 vs. 8.
 
-## 4–11 min · 2. Hipótesis y significado del p-value
+## 2. Hipótesis y significado del p-value
 
 *Diapositivas 3–4*
 
@@ -59,7 +59,7 @@ Al terminar, las personas participantes podrán:
 - **Estadístico:** resume la evidencia; aquí usamos la diferencia de medias.
 - **Distribución nula:** los valores del estadístico que serían habituales si H₀ fuera cierta.
 - **Definición:** probabilidad, *suponiendo H₀ y los supuestos del modelo*, de obtener un estadístico tan extremo como el observado o más.
-- **Qué NO es:**
+- **Qué no es:**
   - la probabilidad de que H₀ sea verdadera;
   - la probabilidad de que el resultado "se deba al azar";
   - una medida del tamaño del efecto.
@@ -69,7 +69,7 @@ Al terminar, las personas participantes podrán:
 
 > **Comprobación:** "¿p = 0.01 significa 99 % de probabilidad de que H₀ sea falsa?" → **No.** Es una probabilidad calculada suponiendo H₀.
 
-## 11–20 min · 3. Entender el p-value mediante permutaciones
+## 3. Entender el p-value mediante permutaciones
 
 *Diapositiva 5 · Parte A del script*
 
@@ -88,15 +88,15 @@ Al terminar, las personas participantes podrán:
 
 > **Pregunta:** "Si aumentamos el número de permutaciones, ¿el p-value necesariamente baja?" → **No.** La estimación se vuelve más estable, pero no tiene por qué disminuir.
 
-## 20–29 min · 4. El problema de las comparaciones múltiples
+## 4. El problema de las comparaciones múltiples
 
 *Diapositivas 6–7 · Parte B del script*
 
-- En GPL570 hay unas 54 000 sondas, y probar cada una con α = 0.05 multiplica los falsos positivos.
-- Si las 20 000 H₀ fueran ciertas, se esperarían unos 1 000 resultados con p < 0.05. Es un valor esperado, no exacto.
-- **Demostración en vivo:**
+- En GPL570 hay unas 54 000 sondas, y probar cada una con α = 0.05 aumenta los falsos positivos.
+- Si todas H₀ fueran ciertas, se esperarían unos 1 000 resultados con p < 0.05. Es un valor esperado, no exacto.
+- **Demostración:**
   - con las etiquetas reales hay muchas sondas con p < 0.05;
-  - **con las etiquetas mezcladas**, sin señal real, siguen saliendo cientos de p < 0.05;
+  - con las etiquetas mezcladas, sin señal real, siguen saliendo cientos de p < 0.05;
   - con BH, casi ninguno sobrevive.
 - Comparar los dos histogramas de p-values: con señal hay un pico cerca de 0; sin señal el histograma es aproximadamente plano.
 - Como los genes están correlacionados, el número de falsos positivos varía de una mezcla a otra.
@@ -106,14 +106,14 @@ Al terminar, las personas participantes podrán:
   - es estricto y pierde efectos reales.
 - **Benjamini–Hochberg:**
   - controla la FDR, la proporción esperada de falsos descubrimientos entre los resultados declarados significativos;
-  - es lo habitual en análisis exploratorios de expresión génica.
-- FDR ≤ 0.05 **no** significa que cada gen tenga un 5 % de probabilidad de ser falso.
+  - es lo habitual en análisis exploratorios de expresión de genes.
+- FDR ≤ 0.05 no significa que cada gen tenga un 5 % de probabilidad de ser falso.
 - En R basta con `p.adjust(p, method = "bonferroni")` y `p.adjust(p, method = "BH")`, sin paquetes.
 - Ajustar no arregla un mal diseño, datos sesgados, confusión entre grupos ni supuestos incumplidos.
 
 > **Pregunta:** "¿Cuál es más conservador, Bonferroni o BH?" → **Bonferroni**, porque controla el error familiar.
 
-## 29–35 min · 5. Leer resultados sin sobreinterpretarlos
+## 5. Leer resultados sin sobreinterpretarlos
 
 *Diapositivas 8–9 · Parte C del script*
 
@@ -121,7 +121,7 @@ Al terminar, las personas participantes podrán:
   - Gen A: p = 0.001, FDR = 0.02 → pasa;
   - Gen B: p = 0.03, FDR = 0.18 → no pasa;
   - Gen C: p = 0.20, FDR = 0.40 → no pasa.
-- El gen B muestra por qué no basta con el p sin ajustar. El script busca casos reales como este en GSE9348 ("sondas con p < 0.05 que NO pasan FDR").
+- El gen B muestra por qué no basta con el p sin ajustar. El script busca casos reales como este en GSE9348 ("sondas con p < 0.05 que no pasan FDR").
 - Mostrar la tabla del script (log2FC, p, FDR, Bonferroni) y el gráfico volcán.
 - Más allá de la significancia hay que revisar:
   - el tamaño y la dirección del cambio (log2FC);
@@ -134,11 +134,9 @@ Al terminar, las personas participantes podrán:
 
 > **Pregunta:** "Si un gen tiene FDR < 0.05, ¿ya es un buen biomarcador?" → **No.** Merece evaluación adicional; no es una validación.
 
-## 35–40 min · 6. Cierre y comprobación final
+## 6. Cierre
 
 *Diapositivas 10–11*
-
-**Cinco ideas:**
 
 1. El p-value se calcula suponiendo H₀ y unos supuestos.
 2. No es la probabilidad de que H₀ sea cierta ni mide el tamaño del efecto.
@@ -147,8 +145,6 @@ Al terminar, las personas participantes podrán:
 5. Significancia ≠ relevancia biológica, causalidad ni utilidad clínica.
 
 **Pregunta para llevarse:** ¿qué hipótesis y supuestos hay detrás de este p-value, cuántas pruebas se hicieron y qué evidencia adicional necesito?
-
-Indicar dónde están el repo, la carpeta de Drive y los ejercicios del final del script.
 
 ### Preguntas finales sugeridas
 
@@ -160,7 +156,7 @@ Indicar dónde están el repo, la carpeta de Drive y los ejercicios del final de
 
 ---
 
-## Notas técnicas para la persona instructora
+## Notas técnicas
 
 - **Interpretación:** el p-value siempre es condicional a H₀ y a los supuestos de la prueba.
 - **Permutación:** se usa una prueba bilateral con el valor absoluto de la diferencia de medias. El p se calcula como (b + 1)/(B + 1).
@@ -168,4 +164,4 @@ Indicar dónde están el repo, la carpeta de Drive y los ejercicios del final de
 - **BH:** controla la FDR bajo independencia y bajo ciertas formas de dependencia positiva, no bajo cualquier estructura de dependencia.
 - **Escala:** el script detecta si los valores están en escala lineal y, en ese caso, aplica log2(x + 1).
 - **Sondas, no genes:** en GPL570 varias sondas pueden corresponder al mismo gen. Para obtener símbolos de gen haría falta la anotación de la plataforma; se omite para no añadir paquetes.
-- **Plan B sin internet:** llevar el archivo `.gz` en una memoria USB y una captura de las salidas del script.
+- **Ejercicio 2 (cambiar la semilla):** al cambiar `semilla` se mueven dos cosas a la vez, no solo una: qué 8+8 pacientes se seleccionan y cómo se revuelven las etiquetas al permutar. Lo que se espera estable entre semillas es el fenómeno de fondo (con etiquetas mezcladas siempre aparecen varios cientos de sondas con p < 0.05 que casi todas desaparecen con FDR); el número exacto de falsos positivos sí varía un poco de una semilla a otra porque los genes están correlacionados. Lo que no se espera estable es el p-value de la sonda de ejemplo (MMP7): con una muestra de solo 8 contra 8, qué pacientes específicos tocaron sí importa, y el valor puede moverse bastante. La respuesta esperada del ejercicio no es "no cambió nada", sino notar que el patrón de falsos positivos por múltiples pruebas se repite de forma robusta, mientras que el resultado de un solo gen con pocas muestras puede ser inestable, lo cual conecta con por qué hacen falta más muestras o replicación para confiar en un hallazgo de un solo gen.

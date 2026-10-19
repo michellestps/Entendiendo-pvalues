@@ -32,12 +32,58 @@ GSE9348 contiene expresión génica de mucosa de colon:
 - 70 tumores de cáncer colorrectal en estadio temprano;
 - plataforma Affymetrix HG-U133 Plus 2.0 (GPL570).
 
-## Cómo ejecutarlo
+### 1. Instalar los programas necesarios
 
-1. Instala [R](https://cran.r-project.org/) y [RStudio](https://posit.co/download/rstudio-desktop/).
-2. Descarga este repositorio: botón verde **Code → Download ZIP** (o `git clone` si usas línea de comandos).
-3. Descarga `GSE9348_series_matrix.txt.gz` del Drive (enlace arriba) y guárdalo dentro de una carpeta `datos/`, junto al script.
-4. Abre `entendiendo_pvalues.R` en RStudio, ve a **Session → Set Working Directory → To Source File Location**, y corre el script por bloques con `Ctrl/Cmd + Enter`.
+Antes de comenzar, instala los siguientes programas:
+
+- **R:** descarga R desde [CRAN](https://cran.r-project.org/).
+- **RStudio Desktop:** descarga [RStudio Desktop](https://posit.co/download/rstudio-desktop/).
+
+Instala primero R y después RStudio. Ambos programas son gratuitos.
+
+### 2. Descargar los archivos del taller
+
+Descarga este repositorio desde GitHub mediante **Code → Download ZIP** y descomprime el archivo en tu computadora.
+
+También puedes clonarlo con Git si ya lo tienes instalado:
+
+```bash
+git clone <URL-de-este-repo>
+```
+
+### 3. Organizar los archivos
+
+Dentro de la carpeta del repositorio, crea una carpeta llamada `datos/` y coloca en ella el archivo de datos descargado desde Google Drive.
+
+La estructura debe quedar así:
+
+```
+entendiendo_pvalues/
+├── entendiendo_pvalues.R
+└── datos/
+    └── GSE9348_series_matrix.txt.gz
+```
+
+No descomprimas el archivo `.gz`, a menos que el código del taller lo indique.
+
+### 4. Abrir el proyecto en RStudio
+
+Abre el archivo `entendiendo_pvalues.R` desde RStudio.
+
+En el menú, selecciona:
+
+**Session → Set Working Directory → To Source File Location**
+
+Esto permite que R encuentre los archivos utilizando las rutas relativas indicadas en el código.
+
+### 5. Ejecutar el código
+
+Ejecuta el script sección por sección para seguir las explicaciones del taller:
+
+- **Windows/Linux:** `Ctrl + Enter`
+- **macOS:** `Cmd + Enter`
+
+Lee los comentarios del código y observa los resultados en la consola de RStudio antes de pasar a la siguiente sección.
 
 ## Qué hace el script
 

@@ -4,3 +4,4 @@ datos/
 .RData
 Rplots.pdf
 .DS_Store
+generar_diapositivas.py
