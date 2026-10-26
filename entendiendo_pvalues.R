@@ -90,7 +90,7 @@ grupo <- ifelse(es_sano & !es_enfermo, "Sano",
          ifelse(es_enfermo & !es_sano, "Enfermo", NA))
 
 # Si alguna muestra no cae claramente en ninguno de los dos grupos (o cae en
-# los dos a la vez), es mejor detenerse y mostrar el texto problemático que
+# los dos a la vez), es mejor detenerse y mostrar el texto antes que
 # adivinar.
 if (anyNA(grupo)) {
   print(texto_muestra[is.na(grupo)])
@@ -103,12 +103,11 @@ print(table(grupo))     # para GSE9348 se espera: 12 sanas y 70 enfermas
 
 # ---- 3. Preparar los datos ---------------------------------------------------
 
-# Los microarreglos se analizan en escala log2 porque la variabilidad de la
+# Los microarreglos se suelen analizar en escala log2 porque la variabilidad de la
 # expresión de genes crece junto con el nivel de expresión (un gen que se
 # expresa mucho varía mucho más, en términos absolutos, que uno que apenas se
 # expresa). El logaritmo aplana esa relación para que la varianza sea más
-# parecida entre genes de expresión alta y baja, que es justo lo que piden
-# las pruebas t que se usan más adelante.
+# parecida entre genes de expresión alta y baja.
 if (max(expr, na.rm = TRUE) > 50) {
   cat("Valores en escala lineal -> aplicamos log2(x + 1)\n")
   expr <- log2(pmax(expr, 0) + 1)
@@ -118,7 +117,7 @@ if (max(expr, na.rm = TRUE) > 50) {
 # necesitan los 16 valores completos para poder comparar los dos grupos.
 expr <- expr[complete.cases(expr), ]
 
-# Para el ejemplo de la clase se usan pocas muestras (8 vs. 8) a propósito,
+# Para el ejemplo de la clase se usan pocas muestras (8 vs. 8),
 # tomadas al azar de los 12 sanos y los 70 enfermos disponibles. Cambia
 # `n_por_grupo` arriba para repetir el ejercicio con más muestras.
 idx_sano    <- sample(which(grupo == "Sano"),    n_por_grupo)
@@ -240,7 +239,7 @@ res <- res[is.finite(res$p), ]           # quitamos sondas sin variabilidad
                                           # (varianza cero -> t indefinida)
 
 # Comprobación: el resultado vectorizado debe coincidir con t.test() para la
-# sonda de ejemplo; si no coincidiera, algo estaría mal en welch_por_fila().
+# sonda de ejemplo
 cat("p (vectorizado) =", signif(res[sonda_ejemplo, "p"], 4),
     " | p (t.test) =", signif(t.test(y ~ grp)$p.value, 4), "\n")
 
@@ -262,9 +261,6 @@ cat("\ncon etiquetas mezcladas (sin señal real):\n")
 cat("  Sondas con p < 0.05:", sum(res_nulo$p < alfa), "<- ¡falsos positivos!\n")
 cat("  Sondas con FDR (BH) < 0.05:",
     sum(p.adjust(res_nulo$p, "BH") < alfa), "\n")
-# Nota: los genes están correlacionados entre sí (genes de la misma vía
-# biológica suben y bajan juntos), así que este número varía bastante de
-# una mezcla a otra.
 
 op <- par(mfrow = c(1, 2))
 hist(res$p, breaks = 40, col = "steelblue", border = "white",
@@ -362,12 +358,8 @@ text(top5$log2FC, -log10(top5$p), labels = rownames(top5),
 # =============================================================================
 # 1. Cambia `n_por_grupo` a 4 y luego a 12. ¿Qué pasa con el número de sondas
 #    con FDR < 0.05? ¿Por qué?
-# 2. Cambia `semilla` y vuelve a ejecutar. ¿Cambia mucho el p-value de la
-#    sonda de ejemplo? ¿Y el número de falsos positivos con etiquetas
-#    mezcladas? (Pista: no son el mismo tipo de cambio -- uno depende de
-#    qué pacientes te tocaron, el otro depende de cómo se revuelven las
-#    etiquetas. Revisa la nota sobre el ejercicio 2 en temario.md.)
-# 3. Elige otra sonda (por ejemplo, la primera de `tabla`) y repite la Parte A.
-# 4. Con etiquetas mezcladas, ¿cuántas sondas pasan Bonferroni? ¿Y BH?
+# 2. Elige otra sonda (por ejemplo, la primera de `tabla`) y repite la Parte A.
+# 3. Con etiquetas mezcladas, ¿cuántas sondas pasan Bonferroni? ¿Y BH?
 
 sessionInfo()
+
